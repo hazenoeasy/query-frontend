@@ -1,10 +1,10 @@
 # Table of contents
 
-* [Welcome!](README.md)
-* [Quick Start](quick-start.md)
+* [22 Spring CSGY-6083 Final Project](README.md)
 
-## Reference
+## API Document
 
-* [API Reference](reference/api-reference/README.md)
-  * [Pets](reference/api-reference/pets.md)
-  * [Users](reference/api-reference/users.md)
+* [API Document](api-document/api-document.md)
+* [API Reference](api-document/api-reference/README.md)
+  * [Pets](api-document/api-reference/pets.md)
+  * [Users](api-document/api-reference/users.md)
