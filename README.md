@@ -20,7 +20,4 @@ Feihong Q
 
 
 
-{% content-ref url="broken-reference" %}
-[Broken link](broken-reference)
-{% endcontent-ref %}
-
+{% embed url="https://github.com/hazenoeasy/query-frontend/blob/develop/api-document/api-document.md" %}
