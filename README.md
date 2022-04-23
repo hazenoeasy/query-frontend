@@ -16,8 +16,4 @@ Feihong Q
 * Framework: Vue3
 * Build Tool: Vite
 
-## API Document
-
-
-
-{% embed url="https://github.com/hazenoeasy/query-frontend/blob/develop/api-document/api-document.md" %}
+## \[API]\([https://github.com/hazenoeasy/query-frontend/blob/develop/api-document/api-document.md](api-document/api-document.md))
