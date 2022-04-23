@@ -17,4 +17,4 @@ Feihong Q
 * Build Tool: Vite
 
 ## API Document
-[click here](https://yz7726.gitbook.io/22-spring-csgy-6083/)
+[click here](https://yz7726.gitbook.io/22-spring-csgy-6083/api-document/api-document)
