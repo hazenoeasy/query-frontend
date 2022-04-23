@@ -10,11 +10,13 @@ Yuhao Z
 
 Feihong Q
 
-## Tech Stack
+## Tool Chains
 
 * Language: Typescript
+* Document: GitBook
 * Framework: Vue3
 * Build Tool: Vite
+* Mock: Mock.js
 
 ## API Document
 [click here](https://yz7726.gitbook.io/22-spring-csgy-6083/api-document/api-document)
