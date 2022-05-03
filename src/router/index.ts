@@ -7,6 +7,13 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: () => import('@/views/LayoutHome.vue'),
+      children: [
+        {
+          path: '/',
+          name: 'indexPage',
+          component: () => import('@/views/IndexView.vue'),
+        },
+      ],
     },
     // {
     //   path: '/about',
