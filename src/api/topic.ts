@@ -24,4 +24,13 @@ export default {
       },
     });
   },
+  getTopicById: function getTopicById(tid: any) {
+    return request({
+      url: baseURL + '/detail',
+      method: 'get',
+      params: {
+        tid: tid,
+      },
+    });
+  },
 };

@@ -14,3 +14,12 @@ export interface Topic {
   topicName: string;
   text: string;
 }
+export interface Answer {
+  aid: string;
+  qid: string;
+  uid: string;
+  text: string;
+  likes: number;
+  best: boolean;
+  datetime: Date;
+}

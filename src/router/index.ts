@@ -23,6 +23,11 @@ const router = createRouter({
           name: 'topicPage',
           component: () => import('@/views/TopicPage.vue'),
         },
+        {
+          path: '/question/:qid',
+          name: 'QuestionDetail',
+          component: () => import('@/views/QuestionDetail.vue'),
+        },
       ],
     },
     // {

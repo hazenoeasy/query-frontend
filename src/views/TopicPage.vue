@@ -1,8 +1,13 @@
 <template>
   <el-container>
     <el-main style="overflow: auto; height: 100%">
-      <div></div>
-      <div v-if="proxy.topic_list.length > 0">Sub Topic</div>
+      <div v-if="proxy.header">
+        <div>{{ proxy.header.topicName }}</div>
+        <div>{{ proxy.header.text }}</div>
+      </div>
+      <div v-if="proxy.topic_list && proxy.topic_list.length > 0">
+        Sub Topic
+      </div>
       <topic-list :list="proxy.topic_list"></topic-list>
       <div>Question List</div>
       <div
@@ -36,30 +41,38 @@ import TopicList from "@/components/Topic/TopicList.vue";
 import QuestionCard from "@/components/Question/QuestionCard.vue";
 const route = useRoute();
 let topic: Topic[] = [];
+let header_init: Topic = {
+  tid: "",
+  parentId: "",
+  topicName: "",
+  text: "",
+};
 let question: Question[] = [];
 let counter = 1;
 let size = 10;
 let disabled = ref(true);
-let proxy = reactive({ topic_list: topic, question_list: question });
+let proxy = reactive({
+  topic_list: topic,
+  question_list: question,
+  header: header_init,
+});
 onBeforeMount(() => {
-  TopicApi.getChildTopic(route.params.parentId).then((response) => {
-    proxy.topic_list = response.data.data;
-  });
+  fetchData(route.params.parentId);
   load();
 });
 watch(
   () => route.params,
   (newParams) => {
+    if (newParams.parentId == null) return;
+    console.log(newParams);
     disabled.value = false;
     counter = 1;
-    TopicApi.getChildTopic(newParams.parentId).then((response) => {
-      proxy.topic_list = response.data.data;
-    });
     QuestionApi.getQuestionList(counter, size, newParams.parentId).then(
       (response) => {
         proxy.question_list = response.data.data;
       }
     );
+    fetchData(newParams.parentId);
   }
 );
 const load = () => {
@@ -73,6 +86,14 @@ const load = () => {
       counter++;
     }
   );
+};
+const fetchData = (id: string | string[]) => {
+  TopicApi.getChildTopic(id).then((response) => {
+    proxy.topic_list = response.data.data;
+  });
+  TopicApi.getTopicById(id).then((response) => {
+    proxy.header = response.data.data;
+  });
 };
 watch;
 </script>

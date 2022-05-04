@@ -21,4 +21,13 @@ export default {
       },
     });
   },
+  getQuestionById: function getQuestionById(qid: any) {
+    return request({
+      url: baseURL + '/detail',
+      method: 'get',
+      params: {
+        qid: qid,
+      },
+    });
+  },
 };
