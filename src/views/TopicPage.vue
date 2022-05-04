@@ -1,13 +1,14 @@
 <template>
   <el-container>
-    <el-main>
+    <el-main style="overflow: auto; height: 100%">
       <div></div>
-      <div>Sub Topic</div>
+      <div v-if="proxy.topic_list.length > 0">Sub Topic</div>
       <topic-list :list="proxy.topic_list"></topic-list>
       <div>Question List</div>
       <div
         v-infinite-scroll="load"
-        style="overflow: auto"
+        :infinite-scroll-disabled="disabled"
+        infinite-scroll-immediate="false"
       >
         <question-card
           v-for="question in proxy.question_list"
@@ -19,29 +20,61 @@
   </el-container>
 </template>
 <script lang="ts" setup>
-import { onBeforeMount, onMounted, reactive, watch, type PropType } from "vue";
+import {
+  onBeforeMount,
+  onMounted,
+  reactive,
+  watch,
+  type PropType,
+  ref,
+} from "vue";
 import TopicApi from "@/api/topic";
 import QuestionApi from "@/api/question";
+import { useRoute } from "vue-router";
 import type { Question, Topic } from "@/type/Interface";
 import TopicList from "@/components/Topic/TopicList.vue";
-import QuestionList from "@/components/Question/QuestionList.vue";
 import QuestionCard from "@/components/Question/QuestionCard.vue";
+const route = useRoute();
 let topic: Topic[] = [];
 let question: Question[] = [];
 let counter = 1;
 let size = 10;
+let disabled = ref(true);
 let proxy = reactive({ topic_list: topic, question_list: question });
 onBeforeMount(() => {
-  TopicApi.getRootTopic().then((response) => {
+  TopicApi.getChildTopic(route.params.parentId).then((response) => {
     proxy.topic_list = response.data.data;
   });
+  load();
 });
+watch(
+  () => route.params,
+  (newParams) => {
+    disabled.value = false;
+    counter = 1;
+    TopicApi.getChildTopic(newParams.parentId).then((response) => {
+      proxy.topic_list = response.data.data;
+    });
+    QuestionApi.getQuestionList(counter, size, newParams.parentId).then(
+      (response) => {
+        proxy.question_list = response.data.data;
+      }
+    );
+  }
+);
 const load = () => {
-  QuestionApi.getQuestionList(counter, size, "").then((response) => {
-    proxy.question_list = response.data.data;
-    counter++;
-  });
+  QuestionApi.getQuestionList(counter, size, route.params.parentId).then(
+    (response) => {
+      if (response.data.data.length == 0) {
+        disabled.value = true;
+      } else {
+        proxy.question_list = proxy.question_list.concat(response.data.data);
+      }
+      counter++;
+    }
+  );
 };
+watch;
 </script>
 <style>
 </style>

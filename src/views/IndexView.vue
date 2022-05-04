@@ -20,17 +20,17 @@ import type { Question, Topic } from "@/type/Interface";
 let question: Question[] = [];
 let topic: Topic[] = [];
 let proxy = reactive({ question_list: question, topic_list: topic });
-onBeforeMount(() => {
-  QuestionApi.getPopularQuestions(10)
+onMounted(() => {
+  TopicApi.getPopularQuestions(10)
     .then((response) => {
-      proxy.question_list = response.data.data;
+      proxy.topic_list = response.data.data;
     })
     .catch((err) => {
       console.log(err);
     });
-  TopicApi.getPopularQuestions(10)
+  QuestionApi.getPopularQuestions(10)
     .then((response) => {
-      proxy.topic_list = response.data.data;
+      proxy.question_list = response.data.data;
     })
     .catch((err) => {
       console.log(err);

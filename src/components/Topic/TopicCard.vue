@@ -1,18 +1,17 @@
 <template>
   <el-card
     class="box-card"
-    v-if:="topic != null"
-    @click="getQuestionList(topic?.tid)"
+    v-if:="props.topic != null"
+    @click="getQuestionList(props.topic?.tid)"
   >
-    <div>{{ topic.topicName }}</div>
-    <div>{{ topic.text }}</div>
+    <div>{{ props.topic.topicName }}</div>
+    <div>{{ props.topic.text }}</div>
   </el-card>
 </template>
 <script lang="ts" setup>
 import type { PropType } from "vue";
 import type { Topic } from "@/type/Interface";
 import { useRouter } from "vue-router";
-import topic from "@/api/topic";
 const router = useRouter();
 const props = defineProps({
   topic: Object as PropType<Topic>,
@@ -20,7 +19,7 @@ const props = defineProps({
 function getQuestionList (tid: string) {
   router.push({
     name: "topicPage",
-    params: { tid: props.topic?.tid },
+    params: { parentId: tid },
   });
 }
 </script>

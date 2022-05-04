@@ -3,6 +3,7 @@
     class="box-card"
     v-if:="question != null"
   >
+    {{ question.qid }}
     <div>{{ question.title }}</div>
     <div>{{ question.datetime }}</div>
   </el-card>
@@ -16,3 +17,4 @@ const props = defineProps({
 </script>
 <style>
 </style>
+z

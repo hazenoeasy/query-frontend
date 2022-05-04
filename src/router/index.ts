@@ -19,7 +19,7 @@ const router = createRouter({
           component: () => import('@/views/TopicRootView.vue'),
         },
         {
-          path: '/topic/:tid',
+          path: '/topic/:parentId',
           name: 'topicPage',
           component: () => import('@/views/TopicPage.vue'),
         },

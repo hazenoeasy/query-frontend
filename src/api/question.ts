@@ -10,7 +10,7 @@ export default {
       },
     });
   },
-  getQuestionList: function getQuestionList(page: number, size: number, tid: string) {
+  getQuestionList: function getQuestionList(page: number, size: number, tid: any) {
     return request({
       url: baseURL + '/list',
       method: 'get',

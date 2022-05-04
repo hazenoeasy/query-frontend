@@ -15,4 +15,13 @@ export default {
       url: baseURL + '/rootTopic',
     });
   },
+  getChildTopic: function getChildTopic(tid: any) {
+    return request({
+      url: baseURL + '/childTopic',
+      method: 'get',
+      params: {
+        parentId: tid,
+      },
+    });
+  },
 };
