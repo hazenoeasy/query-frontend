@@ -10,4 +10,9 @@ export default {
       },
     });
   },
+  getRootTopic: function getRootTopic() {
+    return request({
+      url: baseURL + '/rootTopic',
+    });
+  },
 };

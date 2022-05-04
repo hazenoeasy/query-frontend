@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div>Popular Question</div>
     <div
       v-for="question in list"
       :key="question.qid"

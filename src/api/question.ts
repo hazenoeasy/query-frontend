@@ -10,4 +10,15 @@ export default {
       },
     });
   },
+  getQuestionList: function getQuestionList(page: number, size: number, tid: string) {
+    return request({
+      url: baseURL + '/list',
+      method: 'get',
+      params: {
+        page: page,
+        size: size,
+        tid: tid,
+      },
+    });
+  },
 };

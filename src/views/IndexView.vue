@@ -1,25 +1,26 @@
 <template>
-  <div>
-    <div>Home Page</div>
+  <el-container>
     <el-main class="main-question">
-      <popular-question :list="proxy.question_list"></popular-question>
+      <div>Popular Question</div>
+      <question-list :list="proxy.question_list"></question-list>
     </el-main>
     <el-aside>
+      <div>Popular Topics</div>
       <popular-topic :list="proxy.topic_list"></popular-topic>
     </el-aside>
-  </div>
+  </el-container>
 </template>
 <script lang="ts" setup>
-import PopularQuestion from "@/components/Question/PopularQuestion.vue";
-import PopularTopic from "@/components/Topic/PopularTopic.vue";
+import QuestionList from "@/components/Question/QuestionList.vue";
+import PopularTopic from "@/components/Topic/TopicList.vue";
 import QuestionApi from "@/api/question";
 import TopicApi from "@/api/topic";
-import { onMounted, reactive, ref } from "vue";
+import { onBeforeMount, onMounted, reactive, ref } from "vue";
 import type { Question, Topic } from "@/type/Interface";
 let question: Question[] = [];
 let topic: Topic[] = [];
 let proxy = reactive({ question_list: question, topic_list: topic });
-onMounted(() => {
+onBeforeMount(() => {
   QuestionApi.getPopularQuestions(10)
     .then((response) => {
       proxy.question_list = response.data.data;
@@ -37,7 +38,4 @@ onMounted(() => {
 });
 </script>
 <style>
-.main-question {
-  width: 60%;
-}
 </style>

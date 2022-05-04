@@ -14,7 +14,7 @@
           mode="horizontal"
         >
           <el-menu-item index="/">Home</el-menu-item>
-          <el-menu-item index="/category/all">Topics</el-menu-item>
+          <el-menu-item index="/topicRoot">Topics</el-menu-item>
 
           <el-col
             :span="8"

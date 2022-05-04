@@ -13,6 +13,16 @@ const router = createRouter({
           name: 'indexPage',
           component: () => import('@/views/IndexView.vue'),
         },
+        {
+          path: '/topicRoot',
+          name: 'topicRoot',
+          component: () => import('@/views/TopicRootView.vue'),
+        },
+        {
+          path: '/topic/:tid',
+          name: 'topicPage',
+          component: () => import('@/views/TopicPage.vue'),
+        },
       ],
     },
     // {
