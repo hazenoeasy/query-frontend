@@ -1,12 +1,13 @@
 <template>
   <el-header class="me-area">
+    {{ userStore().token }}
     <el-row class="me-header">
       <el-col
         :span="4"
         class="me-header-left"
       > </el-col>
 
-      <el-col :span="16">
+      <el-col :span="12">
         <el-menu
           :router="true"
           menu-trigger="click"
@@ -35,45 +36,45 @@
         </el-menu>
       </el-col>
 
-      <el-col :span="4">
+      <el-col :span="8">
         <el-menu
           :router="true"
           menu-trigger="click"
           mode="horizontal"
           active-text-color="#909399"
         >
-          <!-- <template v-if="!user.login">
-            <el-menu-item index="/login">
-              <el-button type="text">Login</el-button>
-            </el-menu-item>
-            <el-menu-item index="/register">
-              <el-button type="text">Register</el-button>
-            </el-menu-item>
+          <template v-if="
+            userStore().token == undefined || userStore().token.length == 0
+          ">
+            <el-menu-item index="/login">Login</el-menu-item>
+            <el-menu-item index="/register"> Register </el-menu-item>
           </template>
 
           <template v-else>
-            <el-submenu index>
-              <template slot="title">
-                <img
-                  class="me-header-picture"
-                  :src="user.avatar"
-                />
-              </template>
-              <el-menu-item
-                index
-                @click="logout"
-              ><i class="el-icon-back"></i>Logout</el-menu-item>
-            </el-submenu>
-          </template> -->
+            <el-menu-item
+              index
+              @click="logout"
+            ><i class="el-icon-back"></i>Logout</el-menu-item>
+          </template>
         </el-menu>
       </el-col>
     </el-row>
   </el-header>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { Search } from "@element-plus/icons-vue";
+import { userStore } from "@/store/index";
+import { useRouter } from "vue-router";
+import { debug } from "console";
 const keyWord = ref("");
+const router = useRouter();
+function logout () {
+  userStore().removeToken();
+  router.push({ name: "indexPage" });
+  userStore().setToken("");
+  console.log(userStore().token);
+}
 </script>
 
 <style>

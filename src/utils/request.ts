@@ -9,8 +9,7 @@ import { ElNotification } from 'element-plus';
  * 请求失败后的错误统一处理
  * @param status 请求失败的状态码
  */
-const errorHandle = (status: number) => {
-  // 状态码判断
+const errorHandle = (status: any) => {
   switch (status) {
     case 302:
       ElNotification.error('接口重定向了！');
@@ -57,7 +56,7 @@ const errorHandle = (status: number) => {
       ElNotification.error('网关超时==>' + status);
       break;
     default:
-      ElNotification.error('其他错误错误==>' + status);
+      ElNotification.error('' + status);
   }
 };
 
@@ -70,7 +69,7 @@ const request = axios.create({
   timeout: 3000,
   //配置请求头
   headers: {
-    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;',
+    'Content-Type': 'application/json;charset=UTF-8',
   },
 });
 
@@ -92,10 +91,14 @@ request.interceptors.request.use(
 request.interceptors.response.use(
   (response: AxiosResponse) => {
     const status = response.status;
-
+    const code = response.data.code;
     if (status < 200 || status >= 300) {
       // 处理http错误，抛到业务代码
-      errorHandle(status);
+      errorHandle(code);
+    }
+    if (code < 200 || code >= 300) {
+      // 处理http错误，抛到业务代码
+      ElNotification.error(response.data.message);
     }
     return response;
   },

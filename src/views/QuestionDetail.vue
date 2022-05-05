@@ -17,14 +17,7 @@
   </el-container>
 </template>
 <script lang="ts" setup>
-import {
-  onBeforeMount,
-  onMounted,
-  reactive,
-  watch,
-  type PropType,
-  ref,
-} from "vue";
+import { onBeforeMount, reactive, watch } from "vue";
 import QuestionApi from "@/api/question";
 import AnswerApi from "@/api/answer";
 import { useRoute } from "vue-router";
@@ -51,7 +44,6 @@ watch(
   () => route.params,
   (newParams) => {
     if (newParams.qid == null) return;
-    console.log("xx");
     console.log(newParams);
     fetchData(newParams.qid);
   }

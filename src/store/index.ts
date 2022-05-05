@@ -1,17 +1,19 @@
-import { ref, computed } from "vue";
-import { defineStore } from "pinia";
-
+import { defineStore } from 'pinia';
 // 对外部暴露一个 use 方法，该方法会导出我们定义的 state
-const useCounterStore = defineStore("counter", function () {
-  const count = ref(0);
-  const double = computed(() => count.value * 2);
-  function increment() {
-    count.value++;
-  }
-  return {
-    count,
-    double,
-    increment,
-  };
+export const userStore = defineStore('user', {
+  state: () => ({
+    uid: '',
+    username: '',
+    token: '',
+  }),
+  actions: {
+    setToken(token: string) {
+      localStorage.token = token;
+      this.token = token;
+    },
+    removeToken() {
+      localStorage.removeItem('token');
+      this.token = '';
+    },
+  },
 });
-export default useCounterStore;
