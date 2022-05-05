@@ -1,3 +1,4 @@
+import type { RegisterParams } from '@/type/Interface';
 import request from '@/utils/request';
 const baseURL = '/api';
 export default {
@@ -11,14 +12,11 @@ export default {
       },
     });
   },
-  register: function register(username: string, password: string) {
+  register: function register(registerParams: RegisterParams) {
     return request({
       url: baseURL + '/register',
       method: 'post',
-      data: {
-        username: username,
-        password: password,
-      },
+      data: registerParams,
     });
   },
   logout: function logout() {

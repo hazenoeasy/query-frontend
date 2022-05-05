@@ -23,3 +23,13 @@ export interface Answer {
   best: boolean;
   datetime: Date;
 }
+
+export interface RegisterParams {
+  username: string;
+  password: string;
+  email: string;
+  country?: string;
+  state?: string;
+  city?: string;
+  profile?: string;
+}

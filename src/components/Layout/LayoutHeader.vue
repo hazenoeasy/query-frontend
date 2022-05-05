@@ -3,11 +3,11 @@
     {{ userStore().token }}
     <el-row class="me-header">
       <el-col
-        :span="4"
+        :span="2"
         class="me-header-left"
       > </el-col>
 
-      <el-col :span="12">
+      <el-col :span="18">
         <el-menu
           :router="true"
           menu-trigger="click"
@@ -33,20 +33,14 @@
               </template>
             </el-input>
           </el-col>
-        </el-menu>
-      </el-col>
 
-      <el-col :span="8">
-        <el-menu
-          :router="true"
-          menu-trigger="click"
-          mode="horizontal"
-          active-text-color="#909399"
-        >
           <template v-if="
             userStore().token == undefined || userStore().token.length == 0
           ">
-            <el-menu-item index="/login">Login</el-menu-item>
+            <el-menu-item
+              index="/login"
+              style="margin-left: 20%"
+            >Login</el-menu-item>
             <el-menu-item index="/register"> Register </el-menu-item>
           </template>
 

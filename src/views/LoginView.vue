@@ -1,39 +1,41 @@
 <template>
-  <div class="me-login-box me-login-box-radius">
-    <h1>Query Forum Login</h1>
+  <el-container>
+    <div class="me-login-box me-login-box-radius">
+      <h1>Query Forum Login</h1>
 
-    <el-form
-      ref="userFormRef"
-      :model="userForm"
-      :rules="rules"
-      size="large"
-      label-width="auto"
-    >
-      <el-form-item
-        label="account"
-        prop="account"
+      <el-form
+        ref="userFormRef"
+        :model="userForm"
+        :rules="rules"
+        size="large"
+        label-width="auto"
       >
-        <el-input v-model="userForm.account"></el-input>
-      </el-form-item>
+        <el-form-item
+          label="username"
+          prop="account"
+        >
+          <el-input v-model="userForm.account"></el-input>
+        </el-form-item>
 
-      <el-form-item
-        label="password"
-        prop="password"
-      >
-        <el-input
-          type="password"
-          v-model="userForm.password"
-        ></el-input>
-      </el-form-item>
+        <el-form-item
+          label="password"
+          prop="password"
+        >
+          <el-input
+            type="password"
+            v-model="userForm.password"
+          ></el-input>
+        </el-form-item>
 
-      <el-form-item class="me-login-button">
-        <el-button
-          type="primary"
-          @click="submitForm(userFormRef)"
-        >login</el-button>
-      </el-form-item>
-    </el-form>
-  </div>
+        <el-form-item class="me-login-button">
+          <el-button
+            type="primary"
+            @click="submitForm(userFormRef)"
+          >login</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+  </el-container>
 </template>
 
 <script lang="ts" setup>
@@ -59,27 +61,33 @@ const rules = reactive<FormRules>({
 });
 const submitForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
-  // TopicApi.getPopularQuestions(10).then((response) => {
-  //   userStore().setToken(response.data.data);
-  //   console.log("submit!");
-  //   // router.go(-1);
-  // });
-  AuthApi.login(userForm.account, userForm.password)
-    .then((response) => {
-      if (response.data.code == 200) {
-        userStore().setToken(response.data.data);
-        ElNotification.success("login!");
-        router.go(-1);
-      }
-    })
-    .catch((err) => {
+  formEl.validate((valid) => {
+    if (valid) {
+      AuthApi.login(userForm.account, userForm.password)
+        .then((response) => {
+          if (response.data.code == 200) {
+            userStore().setToken(response.data.data);
+            ElNotification.success("login!");
+            router.go(-1);
+          }
+        })
+        .catch((err) => {
+          ElMessage({
+            showClose: true,
+            message: "wrong password",
+            center: true,
+          });
+          console.log("error!", err);
+        });
+    } else {
       ElMessage({
         showClose: true,
-        message: "wrong password",
+        message: "check your input!",
         center: true,
       });
-      console.log("error!", err);
-    });
+      return false;
+    }
+  });
 };
 </script>
 
@@ -89,20 +97,8 @@ const submitForm = (formEl: FormInstance | undefined) => {
   min-height: 100%;
 }
 
-.me-video-player {
-  background-color: transparent;
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
-  display: block;
-  position: absolute;
-  left: 0;
-  z-index: 0;
-  top: 0;
-}
-
 .me-login-box {
-  position: absolute;
+  position: relative;
   width: 600px;
   height: 260px;
   background-color: white;
