@@ -33,3 +33,15 @@ export interface RegisterParams {
   city?: string;
   profile?: string;
 }
+export interface cascaderTopic {
+  tid: string;
+  parentId: string;
+  topicName: string;
+  text: string;
+  children: cascaderTopic[];
+}
+
+export interface newQuestionParams {
+  body: string;
+  title: string;
+}

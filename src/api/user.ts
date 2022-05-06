@@ -1,12 +1,12 @@
 import request from '@/utils/request';
-const baseURL = '/api/question';
+const baseURL = '/api/users';
 export default {
-  getPopularQuestions: function getPopularQuestions(num: number) {
+  getUserInfo: function getUserInfo(token: string) {
     return request({
-      url: baseURL + '/popular',
+      url: baseURL + '/currentUser',
       method: 'get',
-      params: {
-        number: num,
+      headers: {
+        Authorization: token,
       },
     });
   },

@@ -1,6 +1,5 @@
 <template>
   <el-header class="me-area">
-    {{ userStore().token }}
     <el-row class="me-header">
       <el-col
         :span="2"
@@ -16,7 +15,7 @@
         >
           <el-menu-item index="/">Home</el-menu-item>
           <el-menu-item index="/topicRoot">Topics</el-menu-item>
-
+          <el-menu-item index="/createQuestion">Ask Questions</el-menu-item>
           <el-col
             :span="8"
             :offset="4"
@@ -35,7 +34,9 @@
           </el-col>
 
           <template v-if="
-            userStore().token == undefined || userStore().token.length == 0
+            user.getToken == undefined ||
+            user.getToken == undefined ||
+            user.getToken.length == 0
           ">
             <el-menu-item
               index="/login"
@@ -48,7 +49,9 @@
             <el-menu-item
               index
               @click="logout"
+              style="margin-left: 20%"
             ><i class="el-icon-back"></i>Logout</el-menu-item>
+            {{ "hello " + user.username }}
           </template>
         </el-menu>
       </el-col>
@@ -60,9 +63,9 @@ import { onMounted, ref } from "vue";
 import { Search } from "@element-plus/icons-vue";
 import { userStore } from "@/store/index";
 import { useRouter } from "vue-router";
-import { debug } from "console";
 const keyWord = ref("");
 const router = useRouter();
+const user = userStore();
 function logout () {
   userStore().removeToken();
   router.push({ name: "indexPage" });

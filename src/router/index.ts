@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
-
+import { userStore } from '@/store';
+import UserApi from '@/api/user';
+import { ElMessage } from 'element-plus';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -38,6 +40,14 @@ const router = createRouter({
           name: 'RegisterView',
           component: () => import('@/views/RegisterView.vue'),
         },
+        {
+          path: '/createQuestion',
+          name: 'createQuestion',
+          component: () => import('@/views/CreateQuestion.vue'),
+          meta: {
+            requireLogin: true,
+          },
+        },
       ],
     },
     // {
@@ -49,6 +59,43 @@ const router = createRouter({
     //   component: () => import('../views/AboutView.vue')
     // }
   ],
+});
+router.beforeEach((to, from, next) => {
+  const token: string = userStore().getToken;
+  if (token) {
+    if (to.path === '/login') {
+      next({ path: '/' });
+    } else {
+      if (userStore().username == undefined || userStore().username == null || userStore().username == '') {
+        UserApi.getUserInfo(token)
+          .then((response) => {
+            userStore().setUsername(response.data.data.username);
+            next();
+          })
+          .catch(() => {
+            ElMessage({
+              type: 'warning',
+              showClose: true,
+              message: '登录已过期',
+            });
+            next({ path: '/' });
+          });
+      } else {
+        next();
+      }
+    }
+  } else {
+    if (to.matched.some((r) => r.meta.requireLogin)) {
+      ElMessage({
+        type: 'warning',
+        showClose: true,
+        message: '请先登录哦',
+      });
+      next({ name: 'LoginView' });
+    } else {
+      next();
+    }
+  }
 });
 
 export default router;

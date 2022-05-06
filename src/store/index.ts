@@ -6,12 +6,24 @@ export const userStore = defineStore('user', {
     username: '',
     token: '',
   }),
+  getters: {
+    getToken(): string {
+      this.token = localStorage.token;
+      return this.token;
+    },
+  },
   actions: {
+    setUsername(name: string) {
+      this.username = name;
+      localStorage.username = name;
+    },
     setToken(token: string) {
+      console.log('set token');
       localStorage.token = token;
       this.token = token;
     },
     removeToken() {
+      console.log('remove token');
       localStorage.removeItem('token');
       this.token = '';
     },

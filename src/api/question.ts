@@ -30,4 +30,18 @@ export default {
       },
     });
   },
+  createQuestion: function createQuestion(body: string, title: string, tid: string, token: string) {
+    return request({
+      url: baseURL + '/new',
+      method: 'post',
+      data: {
+        body: body,
+        title: title,
+        tid: tid,
+      },
+      headers: {
+        Authorization: token,
+      },
+    });
+  },
 };

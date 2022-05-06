@@ -33,4 +33,10 @@ export default {
       },
     });
   },
+  getCascaderTopics: function getCascaderTopics() {
+    return request({
+      url: baseURL + '/cascader',
+      method: 'get',
+    });
+  },
 };
