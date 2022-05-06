@@ -10,4 +10,17 @@ export default {
       },
     });
   },
+  addAnswer: function addAnswer(text: string, qid: any, token: string) {
+    return request({
+      url: baseURL + '/reply',
+      method: 'post',
+      data: {
+        qid: qid,
+        text: text,
+      },
+      headers: {
+        Authorization: token,
+      },
+    });
+  },
 };

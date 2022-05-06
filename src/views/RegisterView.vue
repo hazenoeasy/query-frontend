@@ -74,6 +74,7 @@ import { ref, reactive } from "vue";
 import type { FormInstance, FormRules } from "element-plus";
 import { userStore } from "@/store/index";
 import AuthApi from "@/api/auth";
+import UserApi from "@/api/user";
 import { useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
 import { ElNotification } from "element-plus";
