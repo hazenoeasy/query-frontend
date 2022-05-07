@@ -60,14 +60,15 @@
           </div>
         </el-form>
         <div>Answer:</div>
-        <el-descriptions
-          :title="proxy.header.uid"
+        <answer-card
           v-for="answer in proxy.answer_list"
           :key="answer.aid"
+          :answer="answer"
+          :question="proxy.header"
+          @like="like"
+          @best="best"
         >
-          <el-descriptions-item>{{ answer.text }}</el-descriptions-item>
-          <el-descriptions-item>{{ answer.datetime }}</el-descriptions-item>
-        </el-descriptions>
+        </answer-card>
       </div>
     </el-main>
   </el-container>
@@ -81,10 +82,8 @@ import type { Answer, Question, QuestionDetail } from "@/type/Interface";
 import type { FormInstance, FormRules } from "element-plus";
 import { userStore } from "@/store/index";
 import { ElNotification, ElMessage } from "element-plus";
-import auth from "@/api/auth";
 import UserApi from "@/api/user";
-import { computed } from "@vue/reactivity";
-import { fa } from "element-plus/lib/locale";
+import AnswerCard from "@/components/Answer/AnswerCard.vue";
 const route = useRoute();
 let header_init: QuestionDetail = {
   qid: "",
@@ -95,6 +94,7 @@ let header_init: QuestionDetail = {
   resolved: true,
   datetime: "",
   username: "",
+  best: "",
 };
 let answer_init: Answer[] = [];
 let proxy = reactive({
@@ -198,6 +198,17 @@ const unresolve = () => {
       }
     }
   );
+};
+
+const like = (aid: string, rate: number) => {
+  AnswerApi.rateAnswer(aid, rate, userStore().token).then((response) => {
+    fetchData(proxy.header.qid);
+  });
+};
+const best = (aid: string, rate: number) => {
+  AnswerApi.bestAnswer(aid, rate, userStore().token).then((response) => {
+    fetchData(proxy.header.qid);
+  });
 };
 </script>
 <style>

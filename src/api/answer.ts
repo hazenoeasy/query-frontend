@@ -23,4 +23,30 @@ export default {
       },
     });
   },
+  rateAnswer: function rateAnswer(aid: string, like: number, token: string) {
+    return request({
+      url: baseURL + '/like',
+      method: 'post',
+      data: {
+        aid: aid,
+        likes: like,
+      },
+      headers: {
+        Authorization: token,
+      },
+    });
+  },
+  bestAnswer: function rateAnswer(aid: string, best: number, token: string) {
+    return request({
+      url: baseURL + '/best',
+      method: 'post',
+      data: {
+        aid: aid,
+        operation: best,
+      },
+      headers: {
+        Authorization: token,
+      },
+    });
+  },
 };

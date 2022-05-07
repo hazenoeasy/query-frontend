@@ -9,6 +9,7 @@ export interface Question {
 }
 
 export interface QuestionDetail {
+  best: string;
   qid: string;
   uid: string;
   tid: string;
