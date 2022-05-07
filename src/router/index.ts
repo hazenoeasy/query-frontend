@@ -48,16 +48,16 @@ const router = createRouter({
             requireLogin: true,
           },
         },
+        {
+          path: '/userCenter',
+          name: 'userCenter',
+          component: () => import('@/views/UserCenterView.vue'),
+          meta: {
+            requireLogin: true,
+          },
+        },
       ],
     },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import('../views/AboutView.vue')
-    // }
   ],
 });
 router.beforeEach((to, from, next) => {

@@ -49,4 +49,13 @@ export default {
       },
     });
   },
+  getAnswerListByUid: function getAnswerListByUid(uid: string) {
+    return request({
+      url: baseURL + '/user',
+      method: 'get',
+      params: {
+        uid: uid,
+      },
+    });
+  },
 };

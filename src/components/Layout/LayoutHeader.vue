@@ -51,7 +51,7 @@
               @click="logout"
               style="margin-left: 20%"
             ><i class="el-icon-back"></i>Logout</el-menu-item>
-            {{ "hello " + user.username }}
+            <el-menu-item index="/userCenter">UserCenter</el-menu-item>
           </template>
         </el-menu>
       </el-col>

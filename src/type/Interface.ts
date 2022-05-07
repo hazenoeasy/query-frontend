@@ -36,6 +36,18 @@ export interface Answer {
   datetime: Date;
 }
 
+export interface AnswerWithQuestionTitle {
+  title: string;
+  username: string;
+  aid: string;
+  qid: string;
+  uid: string;
+  text: string;
+  likes: number;
+  best: boolean;
+  datetime: Date;
+}
+
 export interface RegisterParams {
   username: string;
   password: string;
@@ -56,4 +68,22 @@ export interface cascaderTopic {
 export interface newQuestionParams {
   body: string;
   title: string;
+}
+
+export interface User {
+  uid: string;
+
+  username: string;
+
+  email: string;
+
+  country: string;
+
+  state: string;
+
+  city: string;
+
+  status: string;
+
+  profile: string;
 }

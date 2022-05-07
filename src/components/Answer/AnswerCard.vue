@@ -2,7 +2,6 @@
   <el-card
     class="box-card"
     v-if:="answer != null"
-    @click="getQuestionDetail(props.answer?.qid)"
   >
     <div class="info">
       <div>{{ answer.username }}</div>
@@ -33,16 +32,17 @@
             size="large"
             type="primary"
             v-if="
-              question?.best == null ||
-              question?.best == undefined ||
-              question?.best == ''
+              question != null &&
+              (question?.best == null ||
+                question?.best == undefined ||
+                question?.best == '')
             "
           >Mark as best Answer</el-button>
           <el-button
             @click="$emit('best', answer?.aid, 0)"
             size="large"
             type="warning"
-            v-if="answer.best"
+            v-if="question != null && answer.best"
           >Unmark as best Answer</el-button>
         </div>
       </div>
