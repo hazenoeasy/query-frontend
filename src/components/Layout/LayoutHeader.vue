@@ -24,6 +24,8 @@
             <el-input
               v-model="keyWord"
               placeholder="Type something"
+              @change="searchResult"
+              @keyup.enter.native="searchResult"
             >
               <template #prefix>
                 <el-icon class="el-input__icon">
@@ -72,6 +74,9 @@ function logout () {
   router.push({ name: "indexPage" });
   console.log(userStore().token);
 }
+const searchResult = () => {
+  router.push({ name: "searchResult", params: { keyword: keyWord.value } });
+};
 </script>
 
 <style>

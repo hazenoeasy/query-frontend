@@ -1,9 +1,11 @@
 <template>
   <el-container>
     <el-main style="overflow: auto; height: 100%">
-      <div v-if="proxy.header">
-        <div>{{ proxy.header.topicName }}</div>
-        <div>{{ proxy.header.text }}</div>
+      <div class="box">
+        <div v-if="proxy.header">
+          <div>{{ proxy.header.topicName }}</div>
+          <div>{{ proxy.header.text }}</div>
+        </div>
       </div>
       <div v-if="proxy.topic_list && proxy.topic_list.length > 0">
         Sub Topic
@@ -95,7 +97,13 @@ const fetchData = (id: string | string[]) => {
     proxy.header = response.data.data;
   });
 };
-watch;
 </script>
 <style>
+.box {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px 0px;
+  box-shadow: 0px 0px 1px 1px rgba(161, 159, 159, 0.1);
+}
 </style>

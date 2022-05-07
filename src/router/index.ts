@@ -56,6 +56,16 @@ const router = createRouter({
             requireLogin: true,
           },
         },
+        {
+          path: '/searchResult/:keyword',
+          name: 'searchResult',
+          component: () => import('@/views/SearchResultView.vue'),
+        },
+        {
+          path: '/userInfo/:uid',
+          name: 'userInfo',
+          component: () => import('@/views/UserInfoView.vue'),
+        },
       ],
     },
   ],

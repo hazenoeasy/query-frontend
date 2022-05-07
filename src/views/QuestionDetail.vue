@@ -4,7 +4,7 @@
       <div class="box">
         <h1 style="font-size: -webkit-xxx-large">{{ proxy.header.title }}</h1>
         <div class="info">
-          <div>{{ proxy.header.username }}</div>
+          <div @click="userInfo">{{ proxy.header.username }}</div>
           <div>{{ proxy.header.datetime }}</div>
           <el-tag
             v-if="!proxy.header.resolved"
@@ -77,7 +77,7 @@
 import { onBeforeMount, reactive, watch, ref } from "vue";
 import QuestionApi from "@/api/question";
 import AnswerApi from "@/api/answer";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import type { Answer, Question, QuestionDetail } from "@/type/Interface";
 import type { FormInstance, FormRules } from "element-plus";
 import { userStore } from "@/store/index";
@@ -85,6 +85,7 @@ import { ElNotification, ElMessage } from "element-plus";
 import UserApi from "@/api/user";
 import AnswerCard from "@/components/Answer/AnswerCard.vue";
 const route = useRoute();
+const router = useRouter();
 let header_init: QuestionDetail = {
   qid: "",
   uid: "",
@@ -208,6 +209,14 @@ const like = (aid: string, rate: number) => {
 const best = (aid: string, rate: number) => {
   AnswerApi.bestAnswer(aid, rate, userStore().token).then((response) => {
     fetchData(proxy.header.qid);
+  });
+};
+const userInfo = () => {
+  router.push({
+    name: "userInfo",
+    params: {
+      uid: proxy.header.uid,
+    },
   });
 };
 </script>

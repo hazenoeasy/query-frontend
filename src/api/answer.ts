@@ -58,4 +58,13 @@ export default {
       },
     });
   },
+  searchAnswer: function searchAnswer(keyword: string) {
+    return request({
+      url: baseURL + '/search',
+      method: 'get',
+      params: {
+        keyword: keyword,
+      },
+    });
+  },
 };

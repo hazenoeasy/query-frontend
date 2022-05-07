@@ -5,7 +5,7 @@
     @click="getQuestionDetail(props.answer?.qid)"
   >
     <div class="info">
-      <div>{{ answer.title }}</div>
+      <div>Q: {{ answer.title }}</div>
       <el-tag
         v-if="answer.best"
         class="ml-3"
@@ -20,6 +20,7 @@
         </div>
       </div>
       <div style="width: 100%; padding: 20px 20px">
+        <div v-if="answer.username != null">Author: {{ answer.username }}</div>
         <div>{{ answer.text }}</div>
       </div>
     </div>
