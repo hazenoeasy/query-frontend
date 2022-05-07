@@ -44,4 +44,28 @@ export default {
       },
     });
   },
+  resolveQuestion: function resolveQuestion(qid: string, token: string) {
+    return request({
+      url: baseURL + '/resolve',
+      method: 'post',
+      data: {
+        qid: qid,
+      },
+      headers: {
+        Authorization: token,
+      },
+    });
+  },
+  unResolveQuestion: function unResolveQuestion(qid: string, token: string) {
+    return request({
+      url: baseURL + '/cancelResolve',
+      method: 'post',
+      data: {
+        qid: qid,
+      },
+      headers: {
+        Authorization: token,
+      },
+    });
+  },
 };

@@ -68,8 +68,8 @@ const router = useRouter();
 const user = userStore();
 function logout () {
   userStore().removeToken();
+  userStore().removeUsername();
   router.push({ name: "indexPage" });
-  userStore().setToken("");
   console.log(userStore().token);
 }
 </script>

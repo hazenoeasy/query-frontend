@@ -8,6 +8,16 @@ export interface Question {
   datetime: Date;
 }
 
+export interface QuestionDetail {
+  qid: string;
+  uid: string;
+  tid: string;
+  title: string;
+  body: string | null;
+  resolved: boolean;
+  datetime: string;
+  username: string;
+}
 export interface Topic {
   tid: string;
   parentId: string;
@@ -15,6 +25,7 @@ export interface Topic {
   text: string;
 }
 export interface Answer {
+  username: string;
   aid: string;
   qid: string;
   uid: string;

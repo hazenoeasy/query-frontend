@@ -10,4 +10,13 @@ export default {
       },
     });
   },
+  getUserById: function getUserById(uid: string) {
+    return request({
+      url: baseURL + '/one',
+      method: 'get',
+      params: {
+        uid: uid,
+      },
+    });
+  },
 };

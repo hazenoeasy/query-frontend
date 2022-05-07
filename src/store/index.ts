@@ -27,5 +27,10 @@ export const userStore = defineStore('user', {
       localStorage.removeItem('token');
       this.token = '';
     },
+    removeUsername() {
+      console.log('remove username');
+      localStorage.removeItem('username');
+      this.username = '';
+    },
   },
 });

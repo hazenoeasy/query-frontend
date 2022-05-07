@@ -67,6 +67,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
         .then((response) => {
           if (response.data.code == 200) {
             userStore().setToken(response.data.data);
+            userStore().setUsername(userForm.account);
             ElNotification.success("login!");
             router.go(-1);
           }
