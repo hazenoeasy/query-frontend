@@ -63,7 +63,7 @@
         <el-button
           type="primary"
           @click="submitForm(userFormRef)"
-        >login</el-button>
+        >register</el-button>
       </el-form-item>
     </el-form>
   </div>
