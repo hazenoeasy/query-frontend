@@ -1,10 +1,10 @@
-import { defineStore } from 'pinia';
+import { defineStore } from "pinia";
 // 对外部暴露一个 use 方法，该方法会导出我们定义的 state
-export const userStore = defineStore('user', {
+export const userStore = defineStore("user", {
   state: () => ({
-    uid: '',
-    username: '',
-    token: '',
+    uid: "",
+    username: "",
+    token: "",
   }),
   getters: {
     getToken(): string {
@@ -18,19 +18,28 @@ export const userStore = defineStore('user', {
       localStorage.username = name;
     },
     setToken(token: string) {
-      console.log('set token');
+      console.log("set token");
       localStorage.token = token;
       this.token = token;
     },
     removeToken() {
-      console.log('remove token');
-      localStorage.removeItem('token');
-      this.token = '';
+      console.log("remove token");
+      localStorage.removeItem("token");
+      this.token = "";
     },
     removeUsername() {
-      console.log('remove username');
-      localStorage.removeItem('username');
-      this.username = '';
+      console.log("remove username");
+      localStorage.removeItem("username");
+      this.username = "";
+    },
+    setUid(uid: string) {
+      localStorage.uid = uid;
+      this.uid = uid;
+    },
+    removeUid() {
+      console.log("remove uid");
+      localStorage.removeItem("uid");
+      this.uid = "";
     },
   },
 });

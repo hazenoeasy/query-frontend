@@ -117,7 +117,7 @@ router.beforeEach((to, from, next) => {
       ElMessage({
         type: "warning",
         showClose: true,
-        message: "请先登录哦",
+        message: "Please Login First",
       });
       next({ name: "LoginView" });
     } else {

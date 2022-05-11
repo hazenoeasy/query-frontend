@@ -85,9 +85,10 @@ let proxy = reactive({
   question_list: question_init,
 });
 onBeforeMount(() => {
-  fetchData(route.params.uid[0]);
+  fetchData(route.params.uid);
 });
-const fetchData = (uid: string) => {
+const fetchData = (uid: any) => {
+  console.log(route.params);
   UserApi.getUserById(uid).then((response) => {
     proxy.user = response.data.data;
     QuestionApi.getQuestionListByUid(uid).then((response) => {

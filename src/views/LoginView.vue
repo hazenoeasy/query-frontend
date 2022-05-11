@@ -53,12 +53,22 @@ const route = useRoute();
 const userForm = reactive({ account: "", password: "" });
 const rules = reactive<FormRules>({
   account: [
-    { required: true, message: "请输入用户名", trigger: "blur" },
-    { min: 3, max: 10, message: "不能大于10个字符", trigger: "blur" },
+    { required: true, message: "please input your username", trigger: "blur" },
+    {
+      min: 3,
+      max: 10,
+      message: "password length must be 7-10",
+      trigger: "blur",
+    },
   ],
   password: [
-    { required: true, message: "请输入密码", trigger: "blur" },
-    { min: 3, max: 10, message: "不能大于10个字符", trigger: "blur" },
+    { required: true, message: "please input your password", trigger: "blur" },
+    {
+      min: 3,
+      max: 10,
+      message: "password length must be 7-10",
+      trigger: "blur",
+    },
   ],
 });
 const submitForm = (formEl: FormInstance | undefined) => {

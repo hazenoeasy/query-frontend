@@ -40,7 +40,7 @@
           <el-button
             type="primary"
             @click="submitForm(userFormRef)"
-          >login</el-button>
+          >Publish</el-button>
         </el-form-item>
       </el-form>
     </div>

@@ -26,7 +26,10 @@
       </div>
       <div style="width: 100%; padding: 20px 20px">
         <div>{{ answer.text }}</div>
-        <div style="text-align: right">
+        <div
+          style="text-align: right"
+          v-if="question?.username == userStore().username"
+        >
           <el-button
             @click="$emit('best', answer?.aid, 1)"
             size="large"
@@ -53,6 +56,8 @@
 import type { PropType } from "vue";
 import type { Answer, QuestionDetail } from "@/type/Interface";
 import { useRouter } from "vue-router";
+import { userStore } from "@/store";
+const store = userStore();
 const router = useRouter();
 const props = defineProps({
   answer: Object as PropType<Answer>,
@@ -65,6 +70,7 @@ function getQuestionDetail (qid: string) {
   });
 }
 const userInfo = () => {
+  console.log(props.answer?.uid);
   router.push({
     name: "userInfo",
     params: {
