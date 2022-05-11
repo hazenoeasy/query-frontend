@@ -5,7 +5,8 @@ export interface Question {
   title: string;
   body: string | null;
   resolve: 0;
-  datetime: Date;
+  datetime: string;
+  relevant: number;
 }
 
 export interface QuestionDetail {

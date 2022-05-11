@@ -43,11 +43,13 @@ import { ref, reactive } from "vue";
 import type { FormInstance, FormRules } from "element-plus";
 import { userStore } from "@/store/index";
 import AuthApi from "@/api/auth";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { ElMessage } from "element-plus";
 import { ElNotification } from "element-plus";
 const userFormRef = ref<FormInstance>();
 const router = useRouter();
+const route = useRoute();
+
 const userForm = reactive({ account: "", password: "" });
 const rules = reactive<FormRules>({
   account: [
@@ -69,7 +71,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
             userStore().setToken(response.data.data);
             userStore().setUsername(userForm.account);
             ElNotification.success("login!");
-            router.go(-1);
+            router.push({ path: "/" });
           }
         })
         .catch((err) => {

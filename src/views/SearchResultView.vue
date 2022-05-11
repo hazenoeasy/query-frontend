@@ -3,6 +3,14 @@
     <el-main>
       <div class="box">
         <h1>Question</h1>
+        <el-switch
+          v-model="proxy.question_sort"
+          size="large"
+          active-text="relevant"
+          inactive-text="time"
+          @change="questionSort"
+          inactive-color="#E6A23C"
+        />
         <question-card
           :question="question"
           v-for="question in proxy.question_list"
@@ -12,6 +20,14 @@
       </div>
       <div class="box">
         <h1>Answer</h1>
+        <el-switch
+          v-model="proxy.answer_sort"
+          size="large"
+          active-text="likes"
+          inactive-text="time"
+          @change="answerSort"
+          inactive-color="#E6A23C"
+        />
         <answer-card-with-question
           v-for="answer in proxy.answer_list"
           :key="answer.aid"
@@ -35,6 +51,8 @@ let question_init: Question[] = [];
 let proxy = reactive({
   answer_list: answer_init,
   question_list: question_init,
+  question_sort: "",
+  answer_sort: "",
 });
 onBeforeMount(() => {
   fetchData(route.params.keyword);
@@ -47,7 +65,32 @@ const fetchData = (keyword: any) => {
     proxy.answer_list = response.data.data;
   });
 };
-
+const questionSort = () => {
+  if (proxy.question_sort) {
+    // sort with relevant
+    proxy.question_list.sort((a, b) => {
+      return b.relevant - a.relevant;
+    });
+  } else {
+    //sort with time
+    proxy.question_list.sort((a, b) => {
+      return b.datetime > a.datetime ? 1 : -1;
+    });
+  }
+};
+const answerSort = () => {
+  if (proxy.answer_sort) {
+    // sort with relevant
+    proxy.answer_list.sort((a, b) => {
+      return b.likes - a.likes;
+    });
+  } else {
+    //sort with time
+    proxy.answer_list.sort((a, b) => {
+      return b.datetime > a.datetime ? 1 : -1;
+    });
+  }
+};
 watch(
   () => route.params,
   (newParams) => {
