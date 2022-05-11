@@ -13,18 +13,36 @@
           <el-descriptions-item label="Status">{{
               proxy.user.status
           }}</el-descriptions-item>
-          <el-descriptions-item label="Country">
-            {{ proxy.user.country }}
-          </el-descriptions-item>
-          <el-descriptions-item label="State">
-            {{ proxy.user.state }}
-          </el-descriptions-item>
-          <el-descriptions-item label="City">
-            {{ proxy.user.city }}
-          </el-descriptions-item>
-          <el-descriptions-item label="Profile">
-            {{ proxy.user.profile }}
-          </el-descriptions-item>
+          <el-descriptions-item label="Level">
+            {{
+                proxy.user.status <
+                  10
+                  ? "Starter"
+                  :
+                  proxy.user.status
+                    <
+                    50
+                    ? "Bronze"
+                    :
+                    proxy.user.status
+                      <
+                      100
+                      ? "Silver"
+                      : "Golden"
+            }}</el-descriptions-item
+            >
+              <el-descriptions-item label="Country">
+                {{ proxy.user.country }}
+              </el-descriptions-item>
+              <el-descriptions-item label="State">
+                {{ proxy.user.state }}
+              </el-descriptions-item>
+              <el-descriptions-item label="City">
+                {{ proxy.user.city }}
+              </el-descriptions-item>
+              <el-descriptions-item label="Profile">
+                {{ proxy.user.profile }}
+              </el-descriptions-item>
         </el-descriptions>
       </div>
       <div class="box">
@@ -90,6 +108,9 @@ onBeforeMount(() => {
 const fetchData = () => {
   UserApi.getUserInfo(userStore().token).then((response) => {
     proxy.user = response.data.data;
+    UserApi.getUserById(proxy.user.uid).then((response) => {
+      proxy.user.status = response.data.data.status;
+    });
     QuestionApi.getQuestionListByUid(proxy.user.uid).then((response) => {
       proxy.question_list = response.data.data;
     });

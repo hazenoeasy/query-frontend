@@ -46,7 +46,7 @@ export interface AnswerWithQuestionTitle {
   text: string;
   likes: number;
   best: boolean;
-  datetime: Date;
+  datetime: string;
 }
 
 export interface RegisterParams {

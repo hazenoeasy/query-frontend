@@ -60,6 +60,14 @@
           </div>
         </el-form>
         <div>Answer:</div>
+        <el-switch
+          v-model="proxy.answer_sort"
+          size="large"
+          active-text="likes"
+          inactive-text="time"
+          @change="answerSort"
+          inactive-color="#E6A23C"
+        />
         <answer-card
           v-for="answer in proxy.answer_list"
           :key="answer.aid"
@@ -101,6 +109,7 @@ let answer_init: Answer[] = [];
 let proxy = reactive({
   header: header_init,
   answer_list: answer_init,
+  answer_sort: "",
 });
 const formRef = ref<FormInstance>();
 const form = reactive({ answer: "" });
@@ -201,6 +210,19 @@ const unresolve = () => {
   );
 };
 
+const answerSort = () => {
+  if (proxy.answer_sort) {
+    // sort with relevant
+    proxy.answer_list.sort((a, b) => {
+      return b.likes - a.likes;
+    });
+  } else {
+    //sort with time
+    proxy.answer_list.sort((a, b) => {
+      return b.datetime > a.datetime ? 1 : -1;
+    });
+  }
+};
 const like = (aid: string, rate: number) => {
   AnswerApi.rateAnswer(aid, rate, userStore().token).then((response) => {
     fetchData(proxy.header.qid);

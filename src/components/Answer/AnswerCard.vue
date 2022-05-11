@@ -4,7 +4,7 @@
     v-if:="answer != null"
   >
     <div class="info">
-      <div>{{ answer.username }}</div>
+      <div @click="userInfo">{{ answer.username }}</div>
       <el-tag
         v-if="answer.best"
         class="ml-3"
@@ -64,6 +64,14 @@ function getQuestionDetail (qid: string) {
     params: { qid: qid },
   });
 }
+const userInfo = () => {
+  router.push({
+    name: "userInfo",
+    params: {
+      uid: props.answer?.uid,
+    },
+  });
+};
 </script>
 <style>
 .info {
